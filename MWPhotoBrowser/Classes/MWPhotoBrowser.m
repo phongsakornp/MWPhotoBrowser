@@ -67,6 +67,7 @@
     _previousPageIndex = NSUIntegerMax;
     _displayActionButton = YES;
     _displayNavArrows = NO;
+    _displayDeleteButton = NO;
     _zoomPhotosToFill = YES;
     _performingLayout = NO; // Reset on view did appear
     _rotating = NO;
@@ -187,6 +188,10 @@
     if (self.displayActionButton) {
         _actionButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAction target:self action:@selector(actionButtonPressed:)];
     }
+    if(self.displayDeleteButton)
+    {
+        _deleteButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemTrash target:self action:@selector(deleteButtonPressed:)];
+    }
     
     // Update
     [self reloadData];
@@ -273,15 +278,25 @@
     } else {
         [items addObject:flexSpace];
     }
-
-    // Right - Action
-    if (_actionButton && !(!hasItems && !self.navigationItem.rightBarButtonItem)) {
-        [items addObject:_actionButton];
-    } else {
-        // We're not showing the toolbar so try and show in top right
-        if (_actionButton)
-            self.navigationItem.rightBarButtonItem = _actionButton;
-        [items addObject:fixedSpace];
+    
+    // Delete button
+    if (_deleteButton)
+    {
+        // Delete Button is a first priority
+        hasItems = YES;
+        [items addObject:_deleteButton];
+    }
+    else
+    {
+        // Right - Action
+        if (_actionButton && !(!hasItems && !self.navigationItem.rightBarButtonItem)) {
+            [items addObject:_actionButton];
+        } else {
+            // We're not showing the toolbar so try and show in top right
+            if (_actionButton)
+                self.navigationItem.rightBarButtonItem = _actionButton;
+            [items addObject:fixedSpace];
+        }
     }
 
     // Toolbar visibility
@@ -1526,6 +1541,13 @@
 
         }
     }
+}
+
+#pragma mark - Delete Action.
+
+- (void)deleteButtonPressed:(id)sender
+{
+    [self.delegate photoBrowser:self deleteButtonPressedForPhotoAtIndex:_currentPageIndex];
 }
 
 #pragma mark - Action Sheet Delegate
