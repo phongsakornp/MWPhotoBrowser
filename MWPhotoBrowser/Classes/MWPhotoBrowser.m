@@ -1680,4 +1680,11 @@
     [self dismissViewControllerAnimated:YES completion:nil];
 }
 
+#pragma mark - Reload grid data
+
+- (void)reloadGridData
+{
+    [_gridController.collectionView reloadData];
+}
+
 @end

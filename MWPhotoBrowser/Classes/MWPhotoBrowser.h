@@ -70,4 +70,7 @@
 - (void)showNextPhotoAnimated:(BOOL)animated;
 - (void)showPreviousPhotoAnimated:(BOOL)animated;
 
+// Reload grid data
+- (void)reloadGridData;
+
 @end
