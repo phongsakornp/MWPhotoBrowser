@@ -19,6 +19,8 @@ profile
 xcuserdata
 *.xcodeproj/project.xcworkspace/
 *.xcodeproj/xcuserdata/
+*.xccheckout
+
 
 #
 # OS X noise
