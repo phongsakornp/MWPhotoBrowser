@@ -38,6 +38,10 @@
 - (void)photoBrowserDidFinishModalPresentation:(MWPhotoBrowser *)photoBrowser;
 - (void)photoBrowser:(MWPhotoBrowser *)photoBrowser deleteButtonPressedForPhotoAtIndex:(NSUInteger)index;
 
+// PhongsakornP.
+// When enable Sharing mode.
+- (void)photoBrowser:(MWPhotoBrowser *)photoBrowser shareButtonPressedWithPhotoAtIndex:(NSUInteger)index;
+
 @end
 
 @interface MWPhotoBrowser : UIViewController <UIScrollViewDelegate, UIActionSheetDelegate, MFMailComposeViewControllerDelegate>
@@ -54,6 +58,11 @@
 @property (nonatomic) NSUInteger delayToHideElements;
 @property (nonatomic, readonly) NSUInteger currentIndex;
 @property (nonatomic) BOOL displayDeleteButton;
+
+// PhongsakornP.
+// Sharing Mode will have 2 buttons on NavigationBarItem, Cancel on the left, Share on the right.
+// When Share button is press the didShare delegate will be called.
+@property (nonatomic) BOOL enableSharingMode;
 
 // Init
 - (id)initWithPhotos:(NSArray *)photosArray  __attribute__((deprecated("Use initWithDelegate: instead"))); // Depreciated

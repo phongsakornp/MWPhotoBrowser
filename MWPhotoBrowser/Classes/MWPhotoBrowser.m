@@ -220,18 +220,41 @@
     
     // Navigation buttons
     if ([self.navigationController.viewControllers objectAtIndex:0] == self) {
-        // We're first on stack so show done button
-        _doneButton = [[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"Done", nil) style:UIBarButtonItemStylePlain target:self action:@selector(doneButtonPressed:)];
-        // Set appearance
-        if ([UIBarButtonItem respondsToSelector:@selector(appearance)]) {
-            [_doneButton setBackgroundImage:nil forState:UIControlStateNormal barMetrics:UIBarMetricsDefault];
-            [_doneButton setBackgroundImage:nil forState:UIControlStateNormal barMetrics:UIBarMetricsLandscapePhone];
-            [_doneButton setBackgroundImage:nil forState:UIControlStateHighlighted barMetrics:UIBarMetricsDefault];
-            [_doneButton setBackgroundImage:nil forState:UIControlStateHighlighted barMetrics:UIBarMetricsLandscapePhone];
-            [_doneButton setTitleTextAttributes:[NSDictionary dictionary] forState:UIControlStateNormal];
-            [_doneButton setTitleTextAttributes:[NSDictionary dictionary] forState:UIControlStateHighlighted];
+        
+        if (!self.enableSharingMode) {
+            // We're first on stack so show done button
+            _doneButton = [[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"Done", nil) style:UIBarButtonItemStylePlain target:self action:@selector(doneButtonPressed:)];
+            // Set appearance
+            if ([UIBarButtonItem respondsToSelector:@selector(appearance)]) {
+                [_doneButton setBackgroundImage:nil forState:UIControlStateNormal barMetrics:UIBarMetricsDefault];
+                [_doneButton setBackgroundImage:nil forState:UIControlStateNormal barMetrics:UIBarMetricsLandscapePhone];
+                [_doneButton setBackgroundImage:nil forState:UIControlStateHighlighted barMetrics:UIBarMetricsDefault];
+                [_doneButton setBackgroundImage:nil forState:UIControlStateHighlighted barMetrics:UIBarMetricsLandscapePhone];
+                [_doneButton setTitleTextAttributes:[NSDictionary dictionary] forState:UIControlStateNormal];
+                [_doneButton setTitleTextAttributes:[NSDictionary dictionary] forState:UIControlStateHighlighted];
+            }
+            self.navigationItem.rightBarButtonItem = _doneButton;
+        } else {
+            _cancelButton = [[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"Cancel", nil) style:UIBarButtonItemStylePlain target:self action:@selector(cancelButtonPressed:)];
+            _shareButton = [[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"Share", nil) style:UIBarButtonItemStylePlain target:self action:@selector(shareButtonPressed:)];
+            if([UIBarButtonItem respondsToSelector:@selector(appearance)]) {
+                [_cancelButton setBackgroundImage:nil forState:UIControlStateNormal barMetrics:UIBarMetricsDefault];
+                [_cancelButton setBackgroundImage:nil forState:UIControlStateNormal barMetrics:UIBarMetricsLandscapePhone];
+                [_cancelButton setBackgroundImage:nil forState:UIControlStateHighlighted barMetrics:UIBarMetricsDefault];
+                [_cancelButton setBackgroundImage:nil forState:UIControlStateHighlighted barMetrics:UIBarMetricsLandscapePhone];
+                [_cancelButton setTitleTextAttributes:[NSDictionary dictionary] forState:UIControlStateNormal];
+                [_cancelButton setTitleTextAttributes:[NSDictionary dictionary] forState:UIControlStateHighlighted];
+                [_shareButton setBackgroundImage:nil forState:UIControlStateNormal barMetrics:UIBarMetricsDefault];
+                [_shareButton setBackgroundImage:nil forState:UIControlStateNormal barMetrics:UIBarMetricsLandscapePhone];
+                [_shareButton setBackgroundImage:nil forState:UIControlStateHighlighted barMetrics:UIBarMetricsDefault];
+                [_shareButton setBackgroundImage:nil forState:UIControlStateHighlighted barMetrics:UIBarMetricsLandscapePhone];
+                [_shareButton setTitleTextAttributes:[NSDictionary dictionary] forState:UIControlStateNormal];
+                [_shareButton setTitleTextAttributes:[NSDictionary dictionary] forState:UIControlStateHighlighted];
+            }
+            self.navigationItem.leftBarButtonItem = _cancelButton;
+            self.navigationItem.rightBarButtonItem = _shareButton;
         }
-        self.navigationItem.rightBarButtonItem = _doneButton;
+        
     } else {
         // We're not first so show back button
         UIViewController *previousViewController = [self.navigationController.viewControllers objectAtIndex:self.navigationController.viewControllers.count-2];
@@ -1552,6 +1575,18 @@
 - (void)deleteButtonPressed:(id)sender
 {
     [self.delegate photoBrowser:self deleteButtonPressedForPhotoAtIndex:_currentPageIndex];
+}
+
+#pragma mark - Cancel Action.
+- (void)cancelButtonPressed:(id)sender
+{
+    [self.delegate photoBrowserDidFinishModalPresentation:self];
+}
+
+#pragma mark - Share Action.
+- (void)shareButtonPressed:(id)sender
+{
+    [self.delegate photoBrowser:self shareButtonPressedWithPhotoAtIndex:_currentPageIndex];
 }
 
 #pragma mark - Action Sheet Delegate
