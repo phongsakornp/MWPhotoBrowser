@@ -60,11 +60,11 @@ typedef void (^ShareButtonPressedEventHandler)();
 // PhongsakornP.
 @property (nonatomic) BOOL displayDeleteButton;
 @property (nonatomic, copy) ShareButtonPressedEventHandler shareButtonPressedEventHandler;
-
-// PhongsakornP.
 // Sharing Mode will have 2 buttons on NavigationBarItem, Cancel on the left, Share on the right.
 // When Share button is press the didShare delegate will be called.
 @property (nonatomic) BOOL enableSharingMode;
+@property (nonatomic) NSString *selectionModeTitle;
+@property (nonatomic) NSString *shareButtonTitle;
 
 // Init
 - (id)initWithPhotos:(NSArray *)photosArray  __attribute__((deprecated("Use initWithDelegate: instead"))); // Depreciated

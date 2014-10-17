@@ -236,7 +236,11 @@
             self.navigationItem.rightBarButtonItem = _doneButton;
         } else {
             _cancelButton = [[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"Cancel", nil) style:UIBarButtonItemStylePlain target:self action:@selector(cancelButtonPressed:)];
-            _shareButton = [[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"Share", nil) style:UIBarButtonItemStylePlain target:self action:@selector(shareButtonPressed:)];
+            NSString *shareButtonTitle = NSLocalizedString(@"Share", nil);
+            if(self.shareButtonTitle) {
+                shareButtonTitle = self.shareButtonTitle;
+            }
+            _shareButton = [[UIBarButtonItem alloc] initWithTitle:shareButtonTitle style:UIBarButtonItemStylePlain target:self action:@selector(shareButtonPressed:)];
             if([UIBarButtonItem respondsToSelector:@selector(appearance)]) {
                 [_cancelButton setBackgroundImage:nil forState:UIControlStateNormal barMetrics:UIBarMetricsDefault];
                 [_cancelButton setBackgroundImage:nil forState:UIControlStateNormal barMetrics:UIBarMetricsLandscapePhone];
@@ -1100,7 +1104,12 @@
     NSUInteger numberOfPhotos = [self numberOfPhotos];
     if (_gridController) {
         if (_gridController.selectionMode) {
-            self.title = NSLocalizedString(@"Select Photos", nil);
+            if (_selectionModeTitle) {
+                self.title = _selectionModeTitle;
+            }
+            else {
+                self.title = NSLocalizedString(@"Select Photos", nil);
+            }
         } else {
             NSString *photosText;
             if (numberOfPhotos == 1) {
