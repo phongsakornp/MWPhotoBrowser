@@ -1578,15 +1578,23 @@
 }
 
 #pragma mark - Cancel Action.
+
 - (void)cancelButtonPressed:(id)sender
 {
     [self.delegate photoBrowserDidFinishModalPresentation:self];
 }
 
 #pragma mark - Share Action.
+
 - (void)shareButtonPressed:(id)sender
 {
-    [self.delegate photoBrowser:self shareButtonPressedWithPhotoAtIndex:_currentPageIndex];
+    if (_shareButtonPressedEventHandler)
+    {
+        _shareButtonPressedEventHandler();
+    }else
+    {
+        [self dismissViewControllerAnimated:YES completion:nil];
+    }
 }
 
 #pragma mark - Action Sheet Delegate

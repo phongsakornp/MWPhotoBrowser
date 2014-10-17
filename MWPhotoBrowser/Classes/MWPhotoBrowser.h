@@ -19,6 +19,9 @@
 #define MWLog(x, ...)
 #endif
 
+// PhongsakornP.
+typedef void (^ShareButtonPressedEventHandler)();
+
 @class MWPhotoBrowser;
 
 @protocol MWPhotoBrowserDelegate <NSObject>
@@ -38,10 +41,6 @@
 - (void)photoBrowserDidFinishModalPresentation:(MWPhotoBrowser *)photoBrowser;
 - (void)photoBrowser:(MWPhotoBrowser *)photoBrowser deleteButtonPressedForPhotoAtIndex:(NSUInteger)index;
 
-// PhongsakornP.
-// When enable Sharing mode.
-- (void)photoBrowser:(MWPhotoBrowser *)photoBrowser shareButtonPressedWithPhotoAtIndex:(NSUInteger)index;
-
 @end
 
 @interface MWPhotoBrowser : UIViewController <UIScrollViewDelegate, UIActionSheetDelegate, MFMailComposeViewControllerDelegate>
@@ -57,7 +56,10 @@
 @property (nonatomic) BOOL startOnGrid;
 @property (nonatomic) NSUInteger delayToHideElements;
 @property (nonatomic, readonly) NSUInteger currentIndex;
+
+// PhongsakornP.
 @property (nonatomic) BOOL displayDeleteButton;
+@property (nonatomic, copy) ShareButtonPressedEventHandler shareButtonPressedEventHandler;
 
 // PhongsakornP.
 // Sharing Mode will have 2 buttons on NavigationBarItem, Cancel on the left, Share on the right.
