@@ -77,6 +77,12 @@
 		self.decelerationRate = UIScrollViewDecelerationRateFast;
 		self.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
         
+        // PhongsakornP.
+        // Quick fix for swiping issue on iOS8.
+        // See also scrollViewWillBeginZooming:withView:.
+        // https://github.com/mwaterfall/MWPhotoBrowser/issues/309
+        self.scrollEnabled = NO;
+        
     }
     return self;
 }
@@ -338,7 +344,12 @@
 }
 
 - (void)scrollViewWillBeginZooming:(UIScrollView *)scrollView withView:(UIView *)view {
-    self.scrollEnabled = YES; // reset
+
+    // PhongsakornP.
+    // Quick fix for swiping issue on iOS8, comment line.
+    // See also initWithPhotoBrowser:.
+    // https://github.com/mwaterfall/MWPhotoBrowser/issues/309
+    //    self.scrollEnabled = YES; // reset
 	[_photoBrowser cancelControlHiding];
 }
 
