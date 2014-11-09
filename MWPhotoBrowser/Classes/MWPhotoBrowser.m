@@ -235,8 +235,8 @@
             }
             self.navigationItem.rightBarButtonItem = _doneButton;
         } else {
-            _cancelButton = [[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"Cancel", nil) style:UIBarButtonItemStylePlain target:self action:@selector(cancelButtonPressed:)];
-            NSString *shareButtonTitle = NSLocalizedString(@"Share", nil);
+            _cancelButton = [[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"CANCEL", nil) style:UIBarButtonItemStylePlain target:self action:@selector(cancelButtonPressed:)];
+            NSString *shareButtonTitle = NSLocalizedString(@"SHARE", nil);
             if(self.shareButtonTitle) {
                 shareButtonTitle = self.shareButtonTitle;
             }
